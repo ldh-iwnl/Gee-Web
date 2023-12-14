@@ -18,7 +18,7 @@ func New() *Engine {
 
 // add route to router
 func (engine *Engine) addRoute(method string, pattern string, handler HandlerFunc) {
-	engine.addRoute(method, pattern, handler)
+	engine.router.addRoute(method, pattern, handler)
 }
 
 func (engine *Engine) GET(pattern string, handler HandlerFunc) {
@@ -31,6 +31,6 @@ func (engine *Engine) Run(addr string) (err error) {
 	return http.ListenAndServe(addr, engine)
 }
 func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	c :=newContext(w,req)
+	c := newContext(w, req)
 	engine.router.handle(c)
 }
